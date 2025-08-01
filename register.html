@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Solidarité Cœur Brisé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .input-focus:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+        }
+        
+        .google-btn {
+            transition: all 0.3s ease;
+            background-color: #4285F4;
+        }
+        
+        .google-btn:hover {
+            background-color: #357ae8;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #6b7280;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .divider::before {
+            margin-right: 1rem;
+        }
+        
+        .divider::after {
+            margin-left: 1rem;
+        }
+        
+        .form-checkbox:checked {
+            background-color: #ef4444;
+            border-color: #ef4444;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
+                    <span class="title-font text-xl font-bold text-gray-800">Solidarité Cœur Brisé</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Accueil</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Témoignages</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Projet Solidaire</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Dons</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Partenaires</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="hidden md:block bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-medium transition duration-300">Connexion</a>
+                    <button class="md:hidden text-gray-700">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">SCB</div>
+                <h2 class="title-font text-3xl font-bold text-gray-900">Créer un compte</h2>
+                <p class="mt-2 text-gray-600">
+                    Rejoignez notre communauté bienveillante
+                </p>
+            </div>
+            
+            <!-- Google Sign-in Button -->
+            <div>
+                <button onclick="signInWithGoogle()" class="google-btn w-full flex items-center justify-center px-4 py-3 rounded-md text-white font-medium">
+                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.63 16.88 16.79 15.71 17.57V20.34H19.28C21.36 18.42 22.56 15.6 22.56 12.25Z" fill="#4285F4"/>
+                        <path d="M12 23C14.97 23 17.46 22.02 19.28 20.34L15.71 17.57C14.73 18.23 13.48 18.64 12 18.64C9.14 18.64 6.72 16.64 5.84 14H2.18V16.82C4 20.54 7.7 23 12 23Z" fill="#34A853"/>
+                        <path d="M5.84 14C5.44 12.85 5.44 11.65 5.84 10.5V7.68H2.18C0.91 10.15 0.91 13.35 2.18 15.82L5.84 14Z" fill="#FBBC05"/>
+                        <path d="M12 5.38C13.62 5.38 15.06 5.94 16.18 7.02L19.34 3.86C17.45 2.09 14.97 1 12 1C7.7 1 4 3.46 2.18 7.18L5.84 10.5C6.72 7.36 9.14 5.38 12 5.38Z" fill="#EA4335"/>
+                    </svg>
+                    S'inscrire avec Google
+                </button>
+            </div>
+            
+            <!-- Divider -->
+            <div class="divider">
+                <span class="text-sm">OU</span>
+            </div>
+            
+            <!-- Registration Form -->
+            <form class="mt-6 space-y-6" id="registrationForm">
+                <div class="space-y-4">
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700">Nom d'utilisateur</label>
+                        <div class="mt-1 relative">
+                            <input id="username" name="username" type="text" required 
+                                   class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 input-focus focus:outline-none sm:text-sm"
+                                   placeholder="Votre pseudonyme">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Adresse email</label>
+                        <div class="mt-1 relative">
+                            <input id="email" name="email" type="email" autocomplete="email" required 
+                                   class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 input-focus focus:outline-none sm:text-sm"
+                                   placeholder="email@exemple.com">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+                        <div class="mt-1 relative">
+                            <input id="password" name="password" type="password" autocomplete="new-password" required 
+                                   class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 input-focus focus:outline-none sm:text-sm"
+                                   placeholder="••••••••">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                        </div>
+                        <p class="mt-2 text-xs text-gray-500">8 caractères minimum avec au moins une majuscule et un chiffre</p>
+                    </div>
+                    
+                    <div>
+                        <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirmer le mot de passe</label>
+                        <div class="mt-1 relative">
+                            <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" required 
+                                   class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 input-focus focus:outline-none sm:text-sm"
+                                   placeholder="••••••••">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <input id="terms" name="terms" type="checkbox" required
+                           class="h-4 w-4 form-checkbox text-red-500 focus:ring-red-500 border-gray-300 rounded">
+                    <label for="terms" class="ml-2 block text-sm text-gray-700">
+                        J'accepte les <a href="#" class="font-medium text-red-500 hover:text-red-600">conditions d'utilisation</a> et la <a href="#" class="font-medium text-red-500 hover:text-red-600">politique de confidentialité</a>
+                    </label>
+                </div>
+                
+                <div class="flex items-center">
+                    <input id="newsletter" name="newsletter" type="checkbox"
+                           class="h-4 w-4 form-checkbox text-red-500 focus:ring-red-500 border-gray-300 rounded">
+                    <label for="newsletter" class="ml-2 block text-sm text-gray-700">
+                        Je souhaite recevoir la newsletter et des informations sur les projets solidaires
+                    </label>
+                </div>
+                
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300">
+                        S'inscrire
+                    </button>
+                </div>
+            </form>
+            
+            <div class="text-center text-sm">
+                <p class="text-gray-600">
+                    Vous avez déjà un compte? 
+                    <a href="#" class="font-medium text-red-500 hover:text-red-600">Connectez-vous</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
+                        <span class="title-font text-2xl font-bold bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent">Solidarité Cœur Brisé</span>
+                    </div>
+                    <p class="text-gray-400 text-lg">Un espace bienveillant pour partager et soutenir.</p>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-lg font-bold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Accueil</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Témoignages</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Projet Solidaire</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Dons</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Partenaires</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                            <span class="text-gray-400">contact@solidaritecoeurbrise.org</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-phone text-gray-400"></i>
+                            <span class="text-gray-400">+33 1 23 45 67 89</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-lg font-bold mb-4">Réseaux sociaux</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 Solidarité Cœur Brisé. Tous droits réservés.</p>
+                <div class="mt-2 space-x-4">
+                    <a href="#" class="text-sm hover:text-white transition">Mentions légales</a>
+                    <a href="#" class="text-sm hover:text-white transition">Politique de confidentialité</a>
+                    <a href="#" class="text-sm hover:text-white transition">Conditions d'utilisation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Fonction pour la connexion avec Google
+        function signInWithGoogle() {
+            // Ici vous intégrerez l'API Google Sign-In
+            // Pour l'instant, c'est juste une simulation
+            console.log("Connexion avec Google en cours...");
+            
+            // Simulation d'une connexion réussie
+            setTimeout(() => {
+                alert("Connexion avec Google réussie ! Redirection...");
+                // window.location.href = "/profil"; // Redirection après connexion
+            }, 1000);
+        }
+        
+        // Validation du formulaire
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Vérification que les mots de passe correspondent
+            if (password !== confirmPassword) {
+                alert("Les mots de passe ne correspondent pas.");
+                return;
+            }
+            
+            // Vérification de la complexité du mot de passe
+            if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+                alert("Le mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre.");
+                return;
+            }
+            
+            // Si tout est OK, on peut envoyer le formulaire
+            console.log("Formulaire soumis avec succès !");
+            alert("Inscription réussie ! Bienvenue dans notre communauté.");
+            // this.submit(); // Décommentez cette ligne pour une vraie soumission
+        });
+    </script>
+</body>
+</html>

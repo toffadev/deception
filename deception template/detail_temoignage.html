@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Témoignage - Solidarité Cœur Brisé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .emoji-reaction:hover {
+            transform: scale(1.2);
+        }
+        
+        .filter-chip {
+            transition: all 0.2s ease;
+        }
+        
+        .filter-chip:hover {
+            transform: scale(1.05);
+        }
+        
+        .comment-box {
+            transition: all 0.3s ease;
+        }
+        
+        .comment-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .donation-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navigation-btn:hover {
+            transform: translateX(5px);
+        }
+        
+        .testimonial-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .testimonial-content p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
+                    <span class="title-font text-xl font-bold text-gray-800">Solidarité Cœur Brisé</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Accueil</a>
+                    <a href="#" class="text-red-500 font-medium">Témoignages</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Projet Solidaire</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Dons</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Partenaires</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="hidden md:block bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-medium transition duration-300">Connexion</a>
+                    <a href="#" class="hidden md:block border border-red-500 text-red-500 hover:bg-red-50 px-4 py-2 rounded-full font-medium transition duration-300">Inscription</a>
+                    <button class="md:hidden text-gray-700">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 py-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-red-500">
+                        <i class="fas fa-home mr-2"></i>
+                        Accueil
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                        <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-red-500 md:ml-2">Témoignages</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Détail du témoignage</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Testimonial Detail Section -->
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <!-- Navigation buttons -->
+                <div class="flex justify-between mb-8">
+                    <a href="#" class="navigation-btn flex items-center text-red-500 hover:text-red-600 font-medium">
+                        <i class="fas fa-arrow-left mr-2"></i> Témoignage précédent
+                    </a>
+                    <a href="#" class="navigation-btn flex items-center text-red-500 hover:text-red-600 font-medium">
+                        Témoignage suivant <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Main testimonial card -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                    <div class="h-64 bg-gradient-to-r from-pink-100 to-red-100 flex items-center justify-center relative">
+                        <i class="fas fa-quote-left text-7xl text-red-300 opacity-20"></i>
+                        <div class="absolute bottom-4 right-4 flex space-x-2">
+                            <span class="bg-white bg-opacity-80 text-sm px-3 py-1 rounded-full text-red-500 font-medium">Témoignage</span>
+                            <span class="bg-white bg-opacity-80 text-sm px-3 py-1 rounded-full text-gray-600">Rupture</span>
+                            <span class="bg-white bg-opacity-80 text-sm px-3 py-1 rounded-full text-gray-600">Trahison</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-gray-200 rounded-full mr-4 overflow-hidden">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Profile" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Clara M.</h4>
+                                    <p class="text-sm text-gray-500">Publié le 15 juin 2023</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex space-x-2">
+                                <button class="text-gray-500 hover:text-red-500 transition">
+                                    <i class="far fa-bookmark text-xl"></i>
+                                </button>
+                                <button class="text-gray-500 hover:text-red-500 transition">
+                                    <i class="fas fa-share-alt text-xl"></i>
+                                </button>
+                                <button class="text-gray-500 hover:text-red-500 transition">
+                                    <i class="far fa-flag text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <h1 class="title-font text-3xl font-bold text-gray-800 mb-6">Le jour où tout s'est effondré</h1>
+                        
+                        <div class="testimonial-content text-gray-700 mb-8">
+                            <p>Après cinq ans de relation, il est parti sans explication. Les premiers jours ont été les plus durs, je ne mangeais plus, je ne dormais plus. Je me souviens de cette sensation physique de douleur constante, comme si quelqu'un m'avait arraché une partie de moi-même.</p>
+                            
+                            <p class="mt-4">Je passais mes nuits à relire nos messages, à analyser chaque moment partagé pour comprendre où j'avais pu me tromper. Les questions tournaient en boucle dans ma tête : "Pourquoi ?", "Qu'ai-je fait pour mériter ça ?", "Comment peut-on arrêter d'aimer du jour au lendemain ?"</p>
+                            
+                            <p class="mt-4">Puis j'ai découvert cette communauté et j'ai réalisé que je n'étais pas seule. Vos messages m'ont aidée à tenir, à comprendre que cette douleur était temporaire. J'ai appris à accepter que certaines questions n'auront jamais de réponse, et que c'est peut-être mieux ainsi.</p>
+                            
+                            <p class="mt-4">Aujourd'hui, un an après, je commence à voir la lumière au bout du tunnel. J'ai repris goût aux petites choses : un café en terrasse, un livre qui me captive, une promenade au soleil. La blessure est toujours là, mais elle ne me définit plus. Je me reconstruis, jour après jour, et je sais maintenant que je mérite bien mieux que ce qu'il pouvait m'offrir.</p>
+                            
+                            <p class="mt-4">Si vous traversez cette épreuve, sachez que vous n'êtes pas seul. La douleur finira par s'estomper, même si aujourd'hui cela vous semble impossible. Accordez-vous le droit de souffrir, mais aussi celui de vous relever, à votre rythme.</p>
+                        </div>
+                        
+                        <!-- Quick reactions -->
+                        <div class="flex flex-wrap items-center justify-between mb-8 pt-6 border-t border-gray-100">
+                            <div class="flex space-x-4 mb-4 sm:mb-0">
+                                <button class="emoji-reaction flex items-center px-4 py-2 bg-gray-100 rounded-full hover:bg-red-50 hover:text-red-500 transition">
+                                    <span class="text-2xl mr-2">❤️</span>
+                                    <span>Merci pour ton partage</span>
+                                    <span class="ml-2 text-gray-500 text-sm">(24)</span>
+                                </button>
+                                <button class="emoji-reaction flex items-center px-4 py-2 bg-gray-100 rounded-full hover:bg-blue-50 hover:text-blue-500 transition">
+                                    <span class="text-2xl mr-2">😢</span>
+                                    <span>Je comprends</span>
+                                    <span class="ml-2 text-gray-500 text-sm">(18)</span>
+                                </button>
+                                <button class="emoji-reaction flex items-center px-4 py-2 bg-gray-100 rounded-full hover:bg-yellow-50 hover:text-yellow-500 transition">
+                                    <span class="text-2xl mr-2">🙏</span>
+                                    <span>Courage à toi</span>
+                                    <span class="ml-2 text-gray-500 text-sm">(32)</span>
+                                </button>
+                            </div>
+                            
+                            <button class="flex items-center text-sm bg-red-50 text-red-500 px-4 py-2 rounded-full hover:bg-red-100 transition">
+                                <i class="fas fa-plus mr-2"></i> Suivre l'auteur
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Support author section -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                    <div class="p-6 md:p-8">
+                        <h2 class="title-font text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-heart text-red-500 mr-3"></i> Soutenez Clara M.
+                        </h2>
+                        
+                        <p class="text-gray-700 mb-6">Si ce témoignage vous a touché, vous pouvez soutenir son auteur en lui offrant un café virtuel. Votre soutien sera directement versé à l'auteur et l'encouragera à continuer d'écrire.</p>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            <button class="donation-option bg-white border-2 border-red-100 text-red-500 hover:border-red-300 hover:bg-red-50 p-4 rounded-lg text-center transition">
+                                <div class="text-2xl mb-2">☕</div>
+                                <div class="font-bold">1€</div>
+                                <div class="text-xs text-gray-500 mt-1">Un café</div>
+                            </button>
+                            <button class="donation-option bg-white border-2 border-red-100 text-red-500 hover:border-red-300 hover:bg-red-50 p-4 rounded-lg text-center transition">
+                                <div class="text-2xl mb-2">☕☕</div>
+                                <div class="font-bold">3€</div>
+                                <div class="text-xs text-gray-500 mt-1">Un café et un croissant</div>
+                            </button>
+                            <button class="donation-option bg-white border-2 border-red-100 text-red-500 hover:border-red-300 hover:bg-red-50 p-4 rounded-lg text-center transition">
+                                <div class="text-2xl mb-2">☕☕☕</div>
+                                <div class="font-bold">5€</div>
+                                <div class="text-xs text-gray-500 mt-1">Un vrai moment de réconfort</div>
+                            </button>
+                            <button class="donation-option bg-white border-2 border-red-100 text-red-500 hover:border-red-300 hover:bg-red-50 p-4 rounded-lg text-center transition">
+                                <div class="text-2xl mb-2">💝</div>
+                                <div class="font-bold">Montant libre</div>
+                                <div class="text-xs text-gray-500 mt-1">Autre somme</div>
+                            </button>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Message personnel (optionnel)</label>
+                            <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="Écrivez un message d'encouragement..."></textarea>
+                        </div>
+                        
+                        <button class="w-full bg-red-500 hover:bg-red-600 text-white px-6 py-4 rounded-lg font-bold transition duration-300 flex items-center justify-center">
+                            <i class="fas fa-coffee mr-3"></i> Offrir un café et soutenir l'auteur
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Comments section -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-6 md:p-8">
+                        <h2 class="title-font text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="far fa-comments text-red-500 mr-3"></i> Commentaires (8)
+                        </h2>
+                        
+                        <!-- Comment form -->
+                        <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+                            <h3 class="font-bold text-gray-800 mb-4">Ajouter un commentaire</h3>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent mb-4" placeholder="Votre commentaire..."></textarea>
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm text-gray-500">
+                                    <i class="fas fa-info-circle mr-1"></i> Soyez bienveillant et respectueux
+                                </div>
+                                <button class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-medium transition duration-300">
+                                    Publier
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Comments list -->
+                        <div class="space-y-6">
+                            <!-- Comment 1 -->
+                            <div class="comment-box bg-gray-50 p-6 rounded-lg">
+                                <div class="flex items-start mb-4">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full mr-4 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <h4 class="font-bold text-gray-800">Marie L.</h4>
+                                                <p class="text-xs text-gray-500">Il y a 2 jours</p>
+                                            </div>
+                                            <button class="text-gray-400 hover:text-red-500">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                        </div>
+                                        <p class="text-gray-700 mt-2">Ton témoignage m'a beaucoup touchée car je vis exactement la même situation. Merci d'avoir partagé ton histoire, ça me donne un peu d'espoir pour l'avenir. Courage à toi ❤️</p>
+                                        <div class="flex items-center mt-3 text-sm text-gray-500">
+                                            <button class="flex items-center mr-4 hover:text-red-500">
+                                                <i class="far fa-heart mr-1"></i> 5
+                                            </button>
+                                            <button class="flex items-center hover:text-gray-700">
+                                                <i class="fas fa-reply mr-1"></i> Répondre
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Reply -->
+                                <div class="pl-14 mt-4">
+                                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                        <div class="flex items-start mb-2">
+                                            <div class="w-8 h-8 bg-gray-200 rounded-full mr-3 overflow-hidden">
+                                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-full h-full object-cover">
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex justify-between items-start">
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-800 text-sm">Pierre D.</h4>
+                                                        <p class="text-xs text-gray-500">Il y a 1 jour</p>
+                                                    </div>
+                                                    <button class="text-gray-400 hover:text-red-500 text-sm">
+                                                        <i class="far fa-heart"></i>
+                                                    </button>
+                                                </div>
+                                                <p class="text-gray-700 mt-1 text-sm">Je rejoins Marie, ton témoignage est très inspirant. J'ai aussi vécu une rupture difficile il y a quelques mois et je me reconnais dans ce que tu décris.</p>
+                                                <div class="flex items-center mt-2 text-xs text-gray-500">
+                                                    <button class="flex items-center mr-3 hover:text-red-500">
+                                                        <i class="far fa-heart mr-1"></i> 2
+                                                    </button>
+                                                    <button class="flex items-center hover:text-gray-700">
+                                                        <i class="fas fa-reply mr-1"></i> Répondre
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Comment 2 -->
+                            <div class="comment-box bg-gray-50 p-6 rounded-lg">
+                                <div class="flex items-start mb-4">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full mr-4 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Profile" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <h4 class="font-bold text-gray-800">Thomas R.</h4>
+                                                <p class="text-xs text-gray-500">Il y a 3 jours</p>
+                                            </div>
+                                            <button class="text-gray-400 hover:text-red-500">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                        </div>
+                                        <p class="text-gray-700 mt-2">Merci pour ce partage si sincère. Je suis passé par là il y a deux ans et aujourd'hui je peux te dire que ça va vraiment mieux, même si sur le moment je n'arrivais pas à l'imaginer. Prends soin de toi.</p>
+                                        <div class="flex items-center mt-3 text-sm text-gray-500">
+                                            <button class="flex items-center mr-4 hover:text-red-500">
+                                                <i class="far fa-heart mr-1"></i> 7
+                                            </button>
+                                            <button class="flex items-center hover:text-gray-700">
+                                                <i class="fas fa-reply mr-1"></i> Répondre
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Comment 3 -->
+                            <div class="comment-box bg-gray-50 p-6 rounded-lg">
+                                <div class="flex items-start mb-4">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full mr-4"></div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <h4 class="font-bold text-gray-800">Anonyme</h4>
+                                                <p class="text-xs text-gray-500">Il y a 4 jours</p>
+                                            </div>
+                                            <button class="text-gray-400 hover:text-red-500">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                        </div>
+                                        <p class="text-gray-700 mt-2">Ton parcours ressemble tellement au mien... Merci d'avoir mis des mots sur ce que je ressens. Ça fait du bien de savoir qu'on n'est pas seul dans ces moments-là.</p>
+                                        <div class="flex items-center mt-3 text-sm text-gray-500">
+                                            <button class="flex items-center mr-4 hover:text-red-500">
+                                                <i class="far fa-heart mr-1"></i> 3
+                                            </button>
+                                            <button class="flex items-center hover:text-gray-700">
+                                                <i class="fas fa-reply mr-1"></i> Répondre
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 text-center">
+                            <button class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-full font-medium transition duration-300">
+                                <i class="fas fa-arrow-down mr-2"></i> Charger plus de commentaires
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Related testimonials -->
+                <div class="mt-12">
+                    <h2 class="title-font text-2xl font-bold text-gray-800 mb-6">Autres témoignages qui pourraient vous toucher</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Related 1 -->
+                        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition">
+                            <div class="h-40 bg-gradient-to-r from-blue-100 to-indigo-100"></div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-8 h-8 bg-gray-200 rounded-full mr-3 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Profile" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800 text-sm">Élodie P.</h4>
+                                        <p class="text-xs text-gray-500">Il y a 1 semaine</p>
+                                    </div>
+                                </div>
+                                <h3 class="title-font text-lg font-bold text-gray-800 mb-2">Apprendre à s'aimer après l'abandon</h3>
+                                <p class="text-gray-600 text-sm line-clamp-2">Comment j'ai retrouvé confiance en moi après avoir été quittée du jour au lendemain...</p>
+                                <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-100">
+                                    <div class="flex space-x-3">
+                                        <span class="text-xs bg-red-50 text-red-500 px-2 py-1 rounded-full">Témoignage</span>
+                                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Reconstruction</span>
+                                    </div>
+                                    <a href="#" class="text-xs text-red-500 hover:text-red-600 font-medium">Lire</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Related 2 -->
+                        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition">
+                            <div class="h-40 bg-gradient-to-r from-purple-100 to-indigo-100"></div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-8 h-8 bg-gray-200 rounded-full mr-3"></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800 text-sm">Anonyme</h4>
+                                        <p class="text-xs text-gray-500">Il y a 2 semaines</p>
+                                    </div>
+                                </div>
+                                <h3 class="title-font text-lg font-bold text-gray-800 mb-2">Lettre à celle qui m'a trahi</h3>
+                                <p class="text-gray-600 text-sm line-clamp-2">Je ne te pardonnerai peut-être jamais, mais je te remercie pour cette leçon de vie qui m'a rendu plus fort...</p>
+                                <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-100">
+                                    <div class="flex space-x-3">
+                                        <span class="text-xs bg-purple-50 text-purple-500 px-2 py-1 rounded-full">Réflexion</span>
+                                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Trahison</span>
+                                    </div>
+                                    <a href="#" class="text-xs text-red-500 hover:text-red-600 font-medium">Lire</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 text-center">
+                        <a href="#" class="inline-block bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full font-medium transition duration-300">
+                            <i class="fas fa-book-open mr-2"></i> Voir tous les témoignages
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-red-600 to-pink-600">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="title-font text-3xl font-bold text-white mb-6">Vous aussi, partagez votre histoire</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Votre témoignage peut aider d'autres personnes et vous permettre de libérer votre peine.</p>
+            <a href="#" class="bg-white text-red-500 hover:bg-gray-100 px-8 py-4 rounded-full font-bold text-lg transition duration-300 shadow-lg">
+                <i class="fas fa-pen-fancy mr-2"></i> Écrire un témoignage
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
+                        <span class="title-font text-2xl font-bold bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent">Solidarité Cœur Brisé</span>
+                    </div>
+                    <p class="text-gray-400 text-lg">Un espace bienveillant pour partager et soutenir.</p>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-lg font-bold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Accueil</a></li>
+                        <li><a href="#" class="text-white hover:text-red-300 transition">Témoignages</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Projet Solidaire</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Dons</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Partenaires</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                            <span class="text-gray-400">contact@solidaritecoeurbrise.org</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-phone text-gray-400"></i>
+                            <span class="text-gray-400">+33 1 23 45 67 89</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-lg font-bold mb-4">Réseaux sociaux</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-16 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 Solidarité Cœur Brisé. Tous droits réservés.</p>
+                <div class="mt-2 space-x-4">
+                    <a href="#" class="text-sm hover:text-white transition">Mentions légales</a>
+                    <a href="#" class="text-sm hover:text-white transition">Politique de confidentialité</a>
+                    <a href="#" class="text-sm hover:text-white transition">Conditions d'utilisation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animation for emoji reactions
+        document.querySelectorAll('.emoji-reaction').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.add('animate-ping');
+                setTimeout(() => {
+                    this.classList.remove('animate-ping');
+                }, 500);
+                
+                // Update count (simulation)
+                const countElement = this.querySelector('span:last-child');
+                if (countElement) {
+                    const currentCount = parseInt(countElement.textContent.replace(/[()]/g, ''));
+                    countElement.textContent = `(${currentCount + 1})`;
+                }
+            });
+        });
+        
+        // Donation options selection
+        document.querySelectorAll('.donation-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.donation-option').forEach(opt => {
+                    opt.classList.remove('border-red-300', 'bg-red-50', 'ring-2', 'ring-red-200');
+                });
+                this.classList.add('border-red-300', 'bg-red-50', 'ring-2', 'ring-red-200');
+            });
+        });
+        
+        // Comment like buttons
+        document.querySelectorAll('.comment-box button.text-gray-400').forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.classList.contains('text-red-500')) {
+                    this.classList.remove('text-red-500');
+                    this.classList.add('text-gray-400');
+                } else {
+                    this.classList.remove('text-gray-400');
+                    this.classList.add('text-red-500');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
