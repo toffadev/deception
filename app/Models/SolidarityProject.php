@@ -40,10 +40,7 @@ class SolidarityProject extends Model
         return $this->hasMany(ProjectMedia::class);
     }
 
-    public function donations(): HasMany
-    {
-        return $this->hasMany(Donation::class, 'solidarity_project_id');
-    }
+
 
     // Scopes
     public function scopeActive($query)
@@ -78,7 +75,7 @@ class SolidarityProject extends Model
 
     public function updateCurrentAmount(): void
     {
-        $this->current_amount = $this->donations()->where('status', 'completed')->sum('amount');
-        $this->save();
+        // Les montants des projets de solidarité sont gérés manuellement
+        // Pas de calcul automatique basé sur les donations
     }
 }

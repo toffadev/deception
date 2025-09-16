@@ -389,20 +389,24 @@
     <!-- Liste des utilisateurs -->
     <div v-else>
       <!-- Actions Bar -->
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 space-y-4 md:space-y-0">
-        <div class="relative w-full md:w-64">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <i class="fas fa-search text-gray-400"></i>
+      <div class="mb-6">
+        <!-- Barre de recherche -->
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+          <div class="relative w-full lg:w-80">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="fas fa-search text-gray-400"></i>
+            </div>
+            <input 
+              type="text" 
+              v-model="search" 
+              class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" 
+              placeholder="Rechercher un utilisateur..."
+            >
           </div>
-          <input 
-            type="text" 
-            v-model="search" 
-            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" 
-            placeholder="Rechercher un utilisateur..."
-          >
         </div>
         
-        <div class="flex space-x-3">
+        <!-- Filtres -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div class="relative">
             <select
               v-model="roleFilter"
@@ -515,7 +519,8 @@
 
       <!-- Table -->
       <div class="bg-white shadow-sm rounded-lg overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
             <tr>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -683,6 +688,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <!-- Pagination -->
         <div v-if="users.data && users.data.length > 0" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">

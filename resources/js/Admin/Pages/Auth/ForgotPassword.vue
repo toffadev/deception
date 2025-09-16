@@ -6,7 +6,7 @@
         <div class="text-center text-white max-w-md">
           <div class="flex items-center justify-center space-x-2 mb-6">
             <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
-            <span class="text-3xl font-bold">Solidarité Cœur Brisé</span>
+            <span class="text-3xl font-bold">Von Tränen zu Taten</span>
           </div>
           <h1 class="text-4xl font-bold mb-4">Récupération Admin</h1>
           <p class="text-lg opacity-90 mb-8">Récupérez l'accès à votre compte administrateur en toute sécurité.</p>
@@ -30,7 +30,7 @@
         <div class="text-center lg:hidden mb-8">
           <div class="flex items-center justify-center space-x-2">
             <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
-            <span class="text-2xl font-bold text-gray-800">Solidarité Cœur Brisé</span>
+            <span class="text-2xl font-bold text-gray-800">Von Tränen zu Taten</span>
           </div>
         </div>
         
@@ -139,7 +139,7 @@
         </div>
         
         <div class="mt-8 text-center text-sm text-gray-600">
-          <p>© 2023 Solidarité Cœur Brisé Admin. Tous droits réservés.</p>
+          <p>© 2023 Von Tränen zu Taten Admin. Tous droits réservés.</p>
         </div>
       </div>
     </div>

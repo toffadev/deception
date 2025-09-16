@@ -1,5 +1,5 @@
 <template>
-  <AuthLayout>
+  <MainLayout>
     <!-- Main Content -->
     <main class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
@@ -106,7 +106,7 @@
         </div>
       </div>
     </main>
-  </AuthLayout>
+  </MainLayout>
 </template>
 
 <script setup>
@@ -114,6 +114,7 @@ import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import AuthLayout from '@client/Layouts/AuthLayout.vue';
+import MainLayout from '@client/Layouts/MainLayout.vue';
 import { route } from 'ziggy-js';
 
 const props = defineProps({

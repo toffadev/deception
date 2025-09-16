@@ -5,8 +5,8 @@
       <div class="auth-overlay absolute inset-0 flex items-center justify-center p-12">
         <div class="text-center text-white max-w-md">
           <div class="flex items-center justify-center space-x-2 mb-6">
-            <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
-            <span class="text-3xl font-bold">Solidarité Cœur Brisé</span>
+            <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">VTT</div>
+            <span class="text-3xl font-bold">Von Tränen zu Taten</span>
           </div>
           <h1 class="text-4xl font-bold mb-4">Tableau de bord Admin</h1>
           <p class="text-lg opacity-90 mb-8">Gérez votre plateforme de solidarité avec notre interface complète d'administration.</p>
@@ -30,7 +30,7 @@
         <div class="text-center lg:hidden mb-8">
           <div class="flex items-center justify-center space-x-2">
             <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
-            <span class="text-2xl font-bold text-gray-800">Solidarité Cœur Brisé</span>
+            <span class="text-2xl font-bold text-gray-800">Von Tränen zu Taten</span>
           </div>
         </div>
         
@@ -81,11 +81,14 @@
                   autocomplete="email" 
                   required 
                   class="input-focus pl-10 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-150" 
-                  :class="{ 'border-red-500': errors.email }"
+                  :class="{ 'border-red-500 bg-red-50': form.errors.email }"
                   placeholder="admin@exemple.com"
                 >
               </div>
-              <div v-if="errors.email" class="mt-1 text-sm text-red-600">{{ errors.email }}</div>
+              <div v-if="form.errors.email" class="mt-1 text-sm text-red-600 flex items-center">
+                <i class="fas fa-exclamation-circle mr-1"></i>
+                {{ Array.isArray(form.errors.email) ? form.errors.email[0] : form.errors.email }}
+              </div>
             </div>
             
             <div>
@@ -104,7 +107,7 @@
                   autocomplete="current-password" 
                   required 
                   class="input-focus pl-10 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-150" 
-                  :class="{ 'border-red-500': errors.password }"
+                  :class="{ 'border-red-500 bg-red-50': form.errors.password }"
                   placeholder="••••••••"
                 >
                 <button 
@@ -115,7 +118,10 @@
                   <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
                 </button>
               </div>
-              <div v-if="errors.password" class="mt-1 text-sm text-red-600">{{ errors.password }}</div>
+              <div v-if="form.errors.password" class="mt-1 text-sm text-red-600 flex items-center">
+                <i class="fas fa-exclamation-circle mr-1"></i>
+                {{ Array.isArray(form.errors.password) ? form.errors.password[0] : form.errors.password }}
+              </div>
             </div>
             
             <div class="flex items-center">
@@ -133,14 +139,16 @@
             <div>
               <button 
                 type="submit" 
-                :disabled="processing"
+                :disabled="form.processing"
                 class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 disabled:opacity-50"
               >
-                <span v-if="processing" class="mr-2">
+                <span v-if="form.processing" class="mr-2">
                   <i class="fas fa-spinner fa-spin"></i>
                 </span>
-                <i class="fas fa-sign-in-alt mr-2"></i> 
-                Se connecter
+                <span v-else class="mr-2">
+                  <i class="fas fa-sign-in-alt"></i>
+                </span>
+                {{ form.processing ? 'Connexion...' : 'Se connecter' }}
               </button>
             </div>
           </form>
@@ -171,7 +179,7 @@
         </div>
         
         <div class="mt-8 text-center text-sm text-gray-600">
-          <p>© 2023 Solidarité Cœur Brisé Admin. Tous droits réservés.</p>
+          <p>© 2023 Von Tränen zu Taten Admin. Tous droits réservés.</p>
         </div>
       </div>
     </div>
@@ -191,7 +199,7 @@ const props = defineProps({
   },
 });
 
-const { errors } = props;
+// Utiliser les erreurs directement depuis le form Inertia comme côté client
 
 const showPassword = ref(false);
 
@@ -201,11 +209,14 @@ const form = useForm({
   remember: false,
 });
 
-const { processing } = form;
-
 const submit = () => {
   form.post(route('admin.auth.login.store'), {
-    onFinish: () => form.reset('password'),
+    onFinish: () => {
+      // Ne réinitialiser le mot de passe que si pas d'erreur
+      if (!form.hasErrors) {
+        form.reset('password');
+      }
+    },
   });
 };
 </script>

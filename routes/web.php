@@ -18,9 +18,94 @@ Route::get('/login', function () {
 })->name('login');
 
 // Routes publiques client
-Route::get('/', function () {
-    return Inertia::render('Home');
-})->name('client.home');
+Route::get('/', [App\Http\Controllers\Client\HomeController::class, 'index'])
+    ->name('client.home');
+
+Route::get('/solidarity', [App\Http\Controllers\Client\SolidarityController::class, 'index'])
+    ->name('client.solidarity');
+
+// Routes AJAX pour la page solidarity
+Route::get('/api/solidarity/media', [App\Http\Controllers\Client\SolidarityController::class, 'getMoreMedia'])
+    ->name('client.solidarity.media');
+Route::get('/api/solidarity/project/{project}', [App\Http\Controllers\Client\SolidarityController::class, 'getProjectDetails'])
+    ->name('client.solidarity.project');
+
+/* Route::get('/solidarite', function () {
+    return Inertia::render('Solidaire');
+})->name('client.solidaire');
+ */
+
+Route::get('/testimony', function () {
+    return Inertia::render('Testimony');
+})->name('client.testimony');
+
+Route::get('/testimony-detail', function () {
+    return Inertia::render('TestimonyDetail');
+})->name('client.testimony-detail');
+
+
+Route::get('/publication', [App\Http\Controllers\Client\PublicationController::class, 'index'])
+    ->name('client.publication');
+
+Route::get('/publication/{publication:slug}', [App\Http\Controllers\Client\PublicationController::class, 'show'])
+    ->name('client.publication.show');
+
+Route::get('/contact', [App\Http\Controllers\Client\ContactController::class, 'index'])
+    ->name('client.contact');
+
+Route::post('/contact', [App\Http\Controllers\Client\ContactController::class, 'sendMessage'])
+    ->name('client.contact.send');
+
+// Route pour la liste publique des personnes malvoyantes
+Route::get('/visually-impaired-people', [App\Http\Controllers\Client\VisuallyImpairedPersonController::class, 'index'])
+    ->name('client.visually-impaired-people');
+
+// Route API pour les statistiques des personnes malvoyantes
+Route::get('/api/visually-impaired-people/stats', [App\Http\Controllers\Client\VisuallyImpairedPersonController::class, 'getStats'])
+    ->name('client.visually-impaired-people.stats');
+
+// Route pour la désinscription des notifications email
+Route::get('/unsubscribe/{user}/{token}', [App\Http\Controllers\Auth\ClientAuthController::class, 'unsubscribe'])
+    ->name('auth.unsubscribe');
+
+// Routes protégées pour les clients authentifiés
+Route::middleware('auth')->group(function () {
+    Route::post('/publication', [App\Http\Controllers\Client\PublicationController::class, 'store'])
+        ->name('client.publication.store');
+    Route::get('/api/tags/suggested', [App\Http\Controllers\Client\PublicationController::class, 'getSuggestedTags'])
+        ->name('client.tags.suggested');
+
+    // Routes pour les commentaires - utiliser l'ID pour ces actions
+    Route::post('/publication/{publication:id}/comments', [App\Http\Controllers\Client\PublicationController::class, 'storeComment'])
+        ->name('client.publication.comments.store');
+
+    // Routes pour les réactions (publications et commentaires)
+    Route::post('/reactions/toggle', [App\Http\Controllers\Client\PublicationController::class, 'toggleReaction'])
+        ->name('client.reactions.toggle');
+
+    // Routes pour les dons - utiliser l'ID pour ces actions
+    Route::post('/publication/{publication:id}/donate', [App\Http\Controllers\Client\PublicationController::class, 'createDonation'])
+        ->name('client.publication.donate');
+    Route::get('/donation/{donationId}/status', [App\Http\Controllers\Client\PublicationController::class, 'checkPaymentStatus'])
+        ->name('client.donation.status');
+
+    // Routes pour les dons solidaires
+    Route::post('/solidarity/donate', [App\Http\Controllers\Client\SolidarityController::class, 'createDonation'])
+        ->name('client.solidarity.donate');
+    Route::get('/solidarity/donation/{donationId}/status', [App\Http\Controllers\Client\SolidarityController::class, 'checkPaymentStatus'])
+        ->name('client.solidarity.donation.status');
+
+    // Routes pour les signalements
+    Route::post('/report', [App\Http\Controllers\Client\PublicationController::class, 'createReport'])
+        ->name('client.report.create');
+});
+
+// Webhook Stripe (sans middleware auth)
+Route::post('/stripe/webhook', [App\Http\Controllers\Client\PublicationController::class, 'stripeWebhook'])
+    ->name('stripe.webhook');
+
+
+
 
 // Routes par défaut pour Laravel (sans préfixe)
 Route::get('/email/verify/{id}/{hash}', [ClientAuthController::class, 'verifyEmail'])
@@ -100,18 +185,18 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
 // Routes admin pour les publications (protégées)
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
-    // Routes resource standard
+    // Routes resource standard (utilisant l'ID, pas le slug)
     Route::get('publications', [PublicationController::class, 'index'])->name('publications.index');
     Route::get('publications/create', [PublicationController::class, 'create'])->name('publications.create');
     Route::post('publications', [PublicationController::class, 'store'])->name('publications.store');
-    Route::get('publications/{publication}/edit', [PublicationController::class, 'edit'])->name('publications.edit');
-    Route::put('publications/{publication}', [PublicationController::class, 'update'])->name('publications.update');
-    Route::delete('publications/{publication}', [PublicationController::class, 'destroy'])->name('publications.destroy');
+    Route::get('publications/{publication:id}/edit', [PublicationController::class, 'edit'])->name('publications.edit');
+    Route::put('publications/{publication:id}', [PublicationController::class, 'update'])->name('publications.update');
+    Route::delete('publications/{publication:id}', [PublicationController::class, 'destroy'])->name('publications.destroy');
 
     // Routes supplémentaires
     Route::post('publications/{id}/restore', [PublicationController::class, 'restore'])->name('publications.restore');
     Route::delete('publications/{id}/force-delete', [PublicationController::class, 'forceDelete'])->name('publications.force-delete');
-    Route::post('publications/{publication}/moderate', [PublicationController::class, 'moderate'])->name('publications.moderate');
+    Route::post('publications/{publication:id}/moderate', [PublicationController::class, 'moderate'])->name('publications.moderate');
 
     // Routes pour les utilisateurs
     Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
@@ -176,4 +261,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::post('solidarity-projects/{solidarityProject}/update-status', [App\Http\Controllers\Admin\SolidarityProjectController::class, 'updateStatus'])->name('solidarity-projects.update-status');
     Route::post('solidarity-projects/{solidarityProject}/recalculate-amount', [App\Http\Controllers\Admin\SolidarityProjectController::class, 'recalculateAmount'])->name('solidarity-projects.recalculate-amount');
     Route::get('solidarity-projects-statistics', [App\Http\Controllers\Admin\SolidarityProjectController::class, 'statistics'])->name('solidarity-projects.statistics');
+
+    // Routes pour les personnes malvoyantes
+    Route::get('visually-impaired', [App\Http\Controllers\Admin\VisuallyImpairedPersonController::class, 'index'])->name('visually-impaired.index');
+    Route::get('visually-impaired/create', [App\Http\Controllers\Admin\VisuallyImpairedPersonController::class, 'create'])->name('visually-impaired.create');
+    Route::post('visually-impaired', [App\Http\Controllers\Admin\VisuallyImpairedPersonController::class, 'store'])->name('visually-impaired.store');
+    Route::get('visually-impaired/{visuallyImpaired}/edit', [App\Http\Controllers\Admin\VisuallyImpairedPersonController::class, 'edit'])->name('visually-impaired.edit');
+    Route::put('visually-impaired/{visuallyImpaired}', [App\Http\Controllers\Admin\VisuallyImpairedPersonController::class, 'update'])->name('visually-impaired.update');
+    Route::delete('visually-impaired/{visuallyImpaired}', [App\Http\Controllers\Admin\VisuallyImpairedPersonController::class, 'destroy'])->name('visually-impaired.destroy');
+    Route::post('visually-impaired/{visuallyImpaired}/toggle-status', [App\Http\Controllers\Admin\VisuallyImpairedPersonController::class, 'toggleStatus'])->name('visually-impaired.toggle-status');
+    Route::post('visually-impaired/reorder', [App\Http\Controllers\Admin\VisuallyImpairedPersonController::class, 'reorder'])->name('visually-impaired.reorder');
 });

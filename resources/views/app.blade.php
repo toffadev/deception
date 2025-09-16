@@ -13,6 +13,8 @@
     
     <!-- Scripts -->
     <script src="https://js.stripe.com/v3/"></script>
+    <!-- TinyMCE CDN -->
+    <script src="https://cdn.tiny.cloud/1/3xwcpwxavpoajgu2hfs7qpnr7ml9wqoe9xgdtqoqtsowk771/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     
     <!-- Routes Ziggy -->
     @php

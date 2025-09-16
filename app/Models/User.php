@@ -27,6 +27,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatar',
         'auth_provider',
         'notification_preferences',
+        'email_notifications',
+        'unsubscribe_token',
         'last_login_at',
     ];
 
@@ -42,6 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'charter_accepted_at' => 'datetime',
         'anonymous_by_default' => 'boolean',
         'notification_preferences' => 'json',
+        'email_notifications' => 'boolean',
         'last_login_at' => 'datetime',
     ];
 
@@ -155,5 +158,19 @@ class User extends Authenticatable implements MustVerifyEmail
     public function updateLastLogin(): void
     {
         $this->update(['last_login_at' => now()]);
+    }
+
+    public function wantsEmailNotifications(): bool
+    {
+        return $this->email_notifications && $this->hasVerifiedEmail();
+    }
+
+    public function generateUnsubscribeToken(): string
+    {
+        if (!$this->unsubscribe_token) {
+            $this->unsubscribe_token = \Str::random(60);
+            $this->save();
+        }
+        return $this->unsubscribe_token;
     }
 }

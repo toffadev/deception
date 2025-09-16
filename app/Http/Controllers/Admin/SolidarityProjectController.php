@@ -19,7 +19,7 @@ class SolidarityProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $query = SolidarityProject::withCount('donations');
+        $query = SolidarityProject::query();
 
         // Filtres
         if ($request->filled('status')) {
@@ -160,7 +160,7 @@ class SolidarityProjectController extends Controller
             'current_amount' => 'nullable|numeric|min:0|max:999999999999.99',
             'currency' => 'required|string|size:3|in:EUR,USD,XOF',
             'status' => 'required|in:planned,active,completed,paused',
-            'start_date' => 'required|date|after_or_equal:today',
+            'start_date' => 'required|date',
             'end_date' => 'nullable|date|after:start_date',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'beneficiaries_info' => 'nullable|array',
@@ -252,15 +252,9 @@ class SolidarityProjectController extends Controller
      */
     public function show(SolidarityProject $solidarityProject)
     {
-        $solidarityProject->load(['donations' => function ($query) {
-            $query->with('user')->where('status', 'completed')->latest()->take(10);
-        }]);
-
         // Ajouter les attributs calculés
         $solidarityProject->progress_percentage = $solidarityProject->getProgressPercentageAttribute();
         $solidarityProject->remaining_amount = $solidarityProject->getRemainingAmountAttribute();
-        $solidarityProject->donations_count = $solidarityProject->donations()->where('status', 'completed')->count();
-        $solidarityProject->total_donations = $solidarityProject->donations()->where('status', 'completed')->sum('amount');
 
         return Inertia::render('Admin/SolidarityProjects/Show', [
             'project' => $solidarityProject
@@ -397,13 +391,8 @@ class SolidarityProjectController extends Controller
         try {
             DB::beginTransaction();
 
-            // Vérifier s'il y a des donations associées
-            $donationsCount = $solidarityProject->donations()->count();
-
-            if ($donationsCount > 0) {
-                return redirect()->back()
-                    ->withErrors(['error' => "Impossible de supprimer ce projet car il a {$donationsCount} donation(s) associée(s). Veuillez d'abord gérer les donations."]);
-            }
+            // Les projets de solidarité peuvent être supprimés sans vérifier les donations
+            // car ils ne reçoivent pas de dons directs
 
             $imagePath = $solidarityProject->featured_image_path;
 

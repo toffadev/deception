@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Compte - Solidarité Cœur Brisé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(253,29,29,0.8) 0%, rgba(252,176,69,0.8) 100%);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .donation-progress {
+            height: 8px;
+            background-color: #e5e7eb;
+        }
+        
+        .donation-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #f87171, #ef4444);
+            transition: width 0.5s ease;
+        }
+        
+        .partner-logo {
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .partner-logo:hover {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+        
+        /* Custom styles for account page */
+        .account-nav-item {
+            position: relative;
+        }
+        
+        .account-nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #ef4444;
+        }
+        
+        .publication-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+        }
+        
+        .publication-status.anonymous {
+            background-color: #f3f4f6;
+            color: #6b7280;
+        }
+        
+        .publication-status.public {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        
+        .donation-type {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+        }
+        
+        .donation-type.one-time {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+        
+        .donation-type.recurring {
+            background-color: #fce7f3;
+            color: #9d174d;
+        }
+        
+        .settings-card {
+            transition: all 0.3s ease;
+        }
+        
+        .settings-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #ef4444;
+            background-color: #ef4444;
+        }
+        
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #fee2e2;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
+                    <span class="title-font text-xl font-bold text-gray-800">Solidarité Cœur Brisé</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Accueil</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Témoignages</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Projet Solidaire</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Dons</a>
+                    <a href="#" class="text-gray-700 hover:text-red-500 font-medium">Partenaires</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-pink-400 rounded-full flex items-center justify-center text-white font-medium text-sm">JD</div>
+                            <span class="hidden md:block font-medium">John Doe</span>
+                            <i class="fas fa-chevron-down text-xs hidden md:block"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mon compte</a>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Paramètres</a>
+                            <div class="border-t border-gray-200"></div>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Déconnexion</a>
+                        </div>
+                    </div>
+                    <button class="md:hidden text-gray-700">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Account Navigation -->
+    <div class="bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto">
+                <a href="#overview" class="account-nav-item active px-6 py-4 text-gray-700 font-medium whitespace-nowrap">Aperçu</a>
+                <a href="#publications" class="account-nav-item px-6 py-4 text-gray-500 hover:text-gray-700 font-medium whitespace-nowrap">Mes publications</a>
+                <a href="#donations" class="account-nav-item px-6 py-4 text-gray-500 hover:text-gray-700 font-medium whitespace-nowrap">Mes dons</a>
+                <a href="#settings" class="account-nav-item px-6 py-4 text-gray-500 hover:text-gray-700 font-medium whitespace-nowrap">Paramètres</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Overview Section -->
+        <section id="overview" class="mb-12">
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <h2 class="title-font text-2xl font-bold text-gray-800 mb-4">Bonjour, John Doe</h2>
+                <p class="text-gray-600 mb-6">Bienvenue dans votre espace personnel. Voici un résumé de votre activité récente.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                        <h3 class="title-font text-xl font-bold text-gray-800 mb-3">Dernière publication</h3>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-gradient-to-r from-red-100 to-pink-100 rounded-full flex items-center justify-center text-red-500 mr-4">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">"Le jour où j'ai compris"</h4>
+                                <p class="text-sm text-gray-500 mb-2">Publié le 15 juin 2023</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <span class="mr-3"><i class="far fa-heart mr-1"></i> 24</span>
+                                    <span class="mr-3"><i class="far fa-comment mr-1"></i> 8</span>
+                                    <span><i class="fas fa-coffee mr-1"></i> 3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="inline-block mt-4 text-red-500 hover:text-red-600 font-medium">Voir la publication <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                        <h3 class="title-font text-xl font-bold text-gray-800 mb-3">Dernier don</h3>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-gradient-to-r from-red-100 to-pink-100 rounded-full flex items-center justify-center text-red-500 mr-4">
+                                <i class="fas fa-hand-holding-heart"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">€50.00</h4>
+                                <p class="text-sm text-gray-500 mb-2">Effectué le 10 juin 2023</p>
+                                <span class="donation-type recurring">Don mensuel</span>
+                            </div>
+                        </div>
+                        <a href="#" class="inline-block mt-4 text-red-500 hover:text-red-600 font-medium">Voir le reçu fiscal <i class="fas fa-download ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="title-font text-2xl font-bold text-gray-800">Votre impact solidaire</h2>
+                    <a href="#" class="text-red-500 hover:text-red-600 font-medium">Voir tout l'historique</a>
+                </div>
+                
+                <div class="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-6 mb-6">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <h3 class="title-font text-xl font-bold text-gray-800 mb-2">Total des dons</h3>
+                            <p class="text-gray-600">Depuis votre inscription en janvier 2022</p>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <div class="text-3xl font-bold text-red-500">€420.00</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white border border-gray-200 rounded-lg p-4 text-center">
+                        <div class="text-red-500 text-3xl font-bold mb-2">12</div>
+                        <div class="text-gray-600">Personnes aidées</div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-4 text-center">
+                        <div class="text-red-500 text-3xl font-bold mb-2">3</div>
+                        <div class="text-gray-600">Projets financés</div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-4 text-center">
+                        <div class="text-red-500 text-3xl font-bold mb-2">2</div>
+                        <div class="text-gray-600">Pays concernés</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="mb-12">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="title-font text-2xl font-bold text-gray-800">Mes publications</h2>
+                    <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-medium transition duration-300">Nouvelle publication</a>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Titre</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Engagement</th>
+                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Le jour où j'ai compris</div>
+                                    <div class="text-sm text-gray-500">Témoignage</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15 juin 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="publication-status public">Public</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <i class="far fa-heart text-red-400 mr-1"></i>
+                                        <span class="text-sm text-gray-600 mr-3">24</span>
+                                        <i class="fas fa-coffee text-yellow-500 mr-1"></i>
+                                        <span class="text-sm text-gray-600">3</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="flex justify-end space-x-2">
+                                        <button class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-500 hover:text-red-700">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Poème pour toi</div>
+                                    <div class="text-sm text-gray-500">Poème</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 mai 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="publication-status anonymous">Anonyme</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <i class="far fa-heart text-red-400 mr-1"></i>
+                                        <span class="text-sm text-gray-600 mr-3">42</span>
+                                        <i class="fas fa-coffee text-yellow-500 mr-1"></i>
+                                        <span class="text-sm text-gray-600">7</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="flex justify-end space-x-2">
+                                        <button class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-500 hover:text-red-700">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Rebondir après la trahison</div>
+                                    <div class="text-sm text-gray-500">Réflexion</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12 avril 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="publication-status public">Public</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <i class="far fa-heart text-red-400 mr-1"></i>
+                                        <span class="text-sm text-gray-600 mr-3">37</span>
+                                        <i class="fas fa-coffee text-yellow-500 mr-1"></i>
+                                        <span class="text-sm text-gray-600">5</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="flex justify-end space-x-2">
+                                        <button class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-500 hover:text-red-700">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-sm text-gray-500">Affichage de 1 à 3 sur 8 publications</div>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Précédent
+                        </button>
+                        <button class="px-3 py-1 border border-red-500 rounded-md text-white bg-red-500 hover:bg-red-600">
+                            1
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            2
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            3
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Suivant
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donations Section -->
+        <section id="donations" class="mb-12">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="title-font text-2xl font-bold text-gray-800">Mes dons solidaires</h2>
+                    <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-medium transition duration-300">Faire un nouveau don</a>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Montant</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Projet</th>
+                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 juin 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">€50.00</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="donation-type recurring">Mensuel</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Équipement pour malvoyants</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-red-500 hover:text-red-700 mr-3">
+                                        <i class="fas fa-download mr-1"></i> Reçu
+                                    </button>
+                                    <button class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-eye mr-1"></i> Impact
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 mai 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">€50.00</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="donation-type recurring">Mensuel</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Équipement pour malvoyants</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-red-500 hover:text-red-700 mr-3">
+                                        <i class="fas fa-download mr-1"></i> Reçu
+                                    </button>
+                                    <button class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-eye mr-1"></i> Impact
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15 avril 2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">€100.00</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="donation-type one-time">Ponctuel</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Formation de chiens guides</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-red-500 hover:text-red-700 mr-3">
+                                        <i class="fas fa-download mr-1"></i> Reçu
+                                    </button>
+                                    <button class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-eye mr-1"></i> Impact
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-sm text-gray-500">Affichage de 1 à 3 sur 12 dons</div>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Précédent
+                        </button>
+                        <button class="px-3 py-1 border border-red-500 rounded-md text-white bg-red-500 hover:bg-red-600">
+                            1
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            2
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            3
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            4
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Suivant
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="title-font text-2xl font-bold text-gray-800 mb-6">Paramètres du compte</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Personal Info -->
+                    <div class="settings-card bg-gray-50 rounded-lg p-6 border border-gray-200">
+                        <h3 class="title-font text-xl font-bold text-gray-800 mb-4">Informations personnelles</h3>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-medium mb-2" for="pseudo">Pseudo</label>
+                            <div class="flex">
+                                <input type="text" id="pseudo" value="John Doe" class="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                                <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-r-md transition duration-300">
+                                    <i class="fas fa-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-medium mb-2" for="email">Adresse e-mail</label>
+                            <div class="flex">
+                                <input type="email" id="email" value="john.doe@example.com" class="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                                <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-r-md transition duration-300">
+                                    <i class="fas fa-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-medium mb-2" for="password">Mot de passe</label>
+                            <div class="flex">
+                                <input type="password" id="password" placeholder="••••••••" class="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                                <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-r-md transition duration-300">
+                                    <i class="fas fa-save"></i>
+                                </button>
+                            </div>
+                            <a href="#" class="text-sm text-red-500 hover:text-red-600 mt-1 inline-block">Modifier le mot de passe</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Preferences -->
+                    <div class="settings-card bg-gray-50 rounded-lg p-6 border border-gray-200">
+                        <h3 class="title-font text-xl font-bold text-gray-800 mb-4">Préférences</h3>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700 font-medium">Mode sombre</span>
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                    <input type="checkbox" id="dark-mode" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                    <label for="dark-mode" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500">Activez le mode sombre pour un confort visuel optimal.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700 font-medium">Mode accessibilité</span>
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                    <input type="checkbox" id="accessibility-mode" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                    <label for="accessibility-mode" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500">Activez des fonctionnalités spéciales pour les utilisateurs malvoyants.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700 font-medium">Publications anonymes par défaut</span>
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                    <input type="checkbox" id="anonymous-default" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked/>
+                                    <label for="anonymous-default" class="toggle-label block overflow-hidden h-6 rounded-full bg-red-100 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500">Toutes vos nouvelles publications seront anonymes par défaut.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700 font-medium">Notifications par e-mail</span>
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                    <input type="checkbox" id="email-notifications" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked/>
+                                    <label for="email-notifications" class="toggle-label block overflow-hidden h-6 rounded-full bg-red-100 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500">Recevez des notifications par e-mail pour les nouvelles activités.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Security & Legal -->
+                <div class="mt-8 pt-8 border-t border-gray-200">
+                    <h3 class="title-font text-xl font-bold text-gray-800 mb-4">Sécurité et accessibilité</h3>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="settings-card bg-gray-50 rounded-lg p-6 border border-gray-200">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-500 mr-4">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800">Déconnexion</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">Fermez votre session en toute sécurité sur tous les appareils.</p>
+                            <button class="w-full bg-white border border-red-500 text-red-500 hover:bg-red-50 py-2 rounded-md font-medium transition duration-300">
+                                Se déconnecter
+                            </button>
+                        </div>
+                        
+                        <div class="settings-card bg-gray-50 rounded-lg p-6 border border-gray-200">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-500 mr-4">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800">Charte de modération</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">Consultez les règles de notre communauté et nos engagements.</p>
+                            <button class="w-full bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 py-2 rounded-md font-medium transition duration-300">
+                                Lire la charte
+                            </button>
+                        </div>
+                        
+                        <div class="settings-card bg-gray-50 rounded-lg p-6 border border-gray-200">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-500 mr-4">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800">Mentions légales</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">Informations juridiques concernant notre plateforme.</p>
+                            <button class="w-full bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 py-2 rounded-md font-medium transition duration-300">
+                                Voir les mentions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">SCB</div>
+                        <span class="title-font text-2xl font-bold bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent">Solidarité Cœur Brisé</span>
+                    </div>
+                    <p class="text-gray-400 text-lg">Un espace bienveillant pour partager et soutenir.</p>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-lg font-bold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Accueil</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Témoignages</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Projet Solidaire</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Dons</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Partenaires</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                            <span class="text-gray-400">contact@solidaritecoeurbrise.org</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-phone text-gray-400"></i>
+                            <span class="text-gray-400">+33 1 23 45 67 89</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-lg font-bold mb-4">Réseaux sociaux</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition duration-300 transform hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-16 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 Solidarité Cœur Brisé. Tous droits réservés.</p>
+                <div class="mt-2 space-x-4">
+                    <a href="#" class="text-sm hover:text-white transition">Mentions légales</a>
+                    <a href="#" class="text-sm hover:text-white transition">Politique de confidentialité</a>
+                    <a href="#" class="text-sm hover:text-white transition">Conditions d'utilisation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to handle tab switching
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.account-nav-item');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all items
+                    navItems.forEach(navItem => {
+                        navItem.classList.remove('active');
+                        navItem.classList.add('text-gray-500');
+                        navItem.classList.remove('text-gray-700');
+                    });
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    this.classList.remove('text-gray-500');
+                    this.classList.add('text-gray-700');
+                    
+                    // Show corresponding section
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.querySelectorAll('section').forEach(section => {
+                        section.style.display = 'none';
+                    });
+                    document.getElementById(targetId).style.display = 'block';
+                });
+            });
+            
+            // Show overview section by default
+            document.getElementById('overview').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

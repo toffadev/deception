@@ -358,20 +358,34 @@
     <!-- Liste des projets -->
     <div v-else>
       <!-- Actions Bar -->
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 space-y-4 md:space-y-0">
-        <div class="relative w-full md:w-64">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <i class="fas fa-search text-gray-400"></i>
+      <div class="mb-6">
+        <!-- Barre de recherche -->
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+          <div class="relative w-full lg:w-80">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="fas fa-search text-gray-400"></i>
+            </div>
+            <input 
+              type="text" 
+              v-model="search" 
+              class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" 
+              placeholder="Rechercher un projet..."
+            >
           </div>
-          <input 
-            type="text" 
-            v-model="search" 
-            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" 
-            placeholder="Rechercher un projet..."
-          >
+          
+          <div class="flex justify-end">
+            <button 
+              @click="showAddForm = true"
+              class="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-md shadow-sm text-sm font-medium hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary whitespace-nowrap"
+            >
+              <i class="fas fa-plus"></i>
+              <span>Ajouter un projet</span>
+            </button>
+          </div>
         </div>
         
-        <div class="flex flex-wrap gap-3">
+        <!-- Filtres -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <select
             v-model="statusFilter"
             class="pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
@@ -410,14 +424,6 @@
             <option value="current">En cours</option>
             <option value="expired">Expirés</option>
           </select>
-          
-          <button 
-            @click="showAddForm = true"
-            class="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-md shadow-sm text-sm font-medium hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            <i class="fas fa-plus"></i>
-            <span>Ajouter un projet</span>
-          </button>
         </div>
       </div>
 
@@ -1011,8 +1017,8 @@ const editProject = (project) => {
     current_amount: project.current_amount,
     currency: project.currency,
     status: project.status,
-    start_date: project.start_date,
-    end_date: project.end_date || '',
+    start_date: project.start_date ? new Date(project.start_date).toISOString().split('T')[0] : '',
+    end_date: project.end_date ? new Date(project.end_date).toISOString().split('T')[0] : '',
     featured_image: null,
     remove_image: false,
     beneficiaries_info: project.beneficiaries_info || [],

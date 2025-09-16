@@ -44,8 +44,12 @@ class PublicationController extends Controller
 
         $publications = $query->orderBy('created_at', 'desc')->paginate(15);
 
+        // Récupérer les utilisateurs pour le formulaire
+        $users = User::select('id', 'pseudo')->orderBy('pseudo')->get();
+
         return Inertia::render('Publications', [
             'publications' => $publications,
+            'users' => $users,
             'filters' => $request->only(['type', 'status', 'search']),
             'flash' => [
                 'success' => session('success'),

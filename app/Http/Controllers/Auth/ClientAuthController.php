@@ -419,4 +419,39 @@ class ClientAuthController extends Controller
         return redirect()->route('client.home')
             ->with('success', 'Votre email a été vérifié avec succès !');
     }
+
+    /**
+     * Désabonner un utilisateur des notifications email
+     */
+    public function unsubscribe(Request $request, User $user, string $token): RedirectResponse
+    {
+        try {
+            // Vérifier que le token correspond
+            if (!$user->unsubscribe_token || $user->unsubscribe_token !== $token) {
+                return redirect()->route('client.home')
+                    ->with('error', 'Lien de désinscription invalide ou expiré.');
+            }
+
+            // Désactiver les notifications email
+            $user->update(['email_notifications' => false]);
+
+            Log::info('Utilisateur désabonné des notifications email', [
+                'user_id' => $user->id,
+                'user_email' => $user->email,
+                'token' => $token
+            ]);
+
+            return redirect()->route('client.home')
+                ->with('success', 'Vous avez été désabonné des notifications email avec succès. Vous pouvez réactiver les notifications depuis votre profil.');
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la désinscription des notifications', [
+                'user_id' => $user->id,
+                'token' => $token,
+                'error' => $e->getMessage()
+            ]);
+
+            return redirect()->route('client.home')
+                ->with('error', 'Une erreur est survenue lors de la désinscription. Veuillez réessayer.');
+        }
+    }
 }

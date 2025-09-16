@@ -228,13 +228,21 @@
         <!-- Contenu -->
         <div>
           <label for="content" class="block text-sm font-medium text-gray-700">Contenu</label>
-          <textarea
-            id="content"
+          <TinyMCEEditor
             v-model="form.content"
-            rows="6"
-            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-            required
-          ></textarea>
+            :min-characters="200"
+            :show-word-count="true"
+            @content-change="handleContentChange"
+            :disabled="false"
+          />
+          <div v-if="contentStatus.characterCount > 0" class="mt-2 text-sm text-gray-500">
+            <span :class="contentStatus.isValid ? 'text-green-600' : 'text-orange-500'">
+              {{ contentStatus.characterCount }} caractères
+            </span>
+            <span v-if="!contentStatus.isValid" class="text-orange-500 ml-2">
+              (minimum 200 caractères requis)
+            </span>
+          </div>
         </div>
 
         <!-- Type -->
@@ -406,7 +414,8 @@
 
       <!-- Table -->
       <div class="bg-white shadow-sm rounded-lg overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
             <tr>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -533,6 +542,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <!-- Pagination -->
         <div v-if="publications.data && publications.data.length > 0" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
@@ -749,6 +759,7 @@
 import { ref, computed, watch } from 'vue'
 import AdminLayout from '../Layouts/AdminLayout.vue'
 import { router } from '@inertiajs/vue3'
+import TinyMCEEditor from '@/Admin/Components/TinyMCEEditor.vue'
 
 const props = defineProps({
   publications: {
@@ -789,6 +800,10 @@ const showDetailModal = ref(false)
 const currentDetailPublication = ref(null)
 const showForceDeleteModal = ref(false) // Nouveau modal pour la suppression définitive
 const publicationToForceDelete = ref(null) // ID de la publication à supprimer définitivement
+const contentStatus = ref({
+    characterCount: 0,
+    isValid: false
+})
 
 // Form state
 const form = ref({
@@ -1088,6 +1103,13 @@ const handleFormSubmit = () => {
   }
 }
 
+const handleContentChange = (data) => {
+    contentStatus.value = {
+        characterCount: data.characterCount,
+        isValid: data.isValid
+    }
+}
+
 const cancelForm = () => {
   showAddForm.value = false
   editingPublication.value = null
@@ -1100,6 +1122,10 @@ const cancelForm = () => {
     moderation_reason: '',
     author_type: '',
     custom_author_name: ''
+  }
+  contentStatus.value = {
+    characterCount: 0,
+    isValid: false
   }
 }
 

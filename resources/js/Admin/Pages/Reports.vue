@@ -152,20 +152,35 @@
     <!-- Liste des signalements -->
     <div>
       <!-- Actions Bar -->
-      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 space-y-4 lg:space-y-0">
-        <div class="relative w-full lg:w-64">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <i class="fas fa-search text-gray-400"></i>
+      <div class="mb-6">
+        <!-- Barre de recherche et actions -->
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+          <div class="relative w-full lg:w-80">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="fas fa-search text-gray-400"></i>
+            </div>
+            <input 
+              type="text" 
+              v-model="search" 
+              class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" 
+              placeholder="Rechercher un signalement..."
+            >
           </div>
-          <input 
-            type="text" 
-            v-model="search" 
-            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" 
-            placeholder="Rechercher un signalement..."
-          >
+          
+          <div class="flex justify-end">
+            <button 
+              v-if="selectedReports.length > 0"
+              @click="showBulkModal = true"
+              class="flex items-center space-x-2 px-4 py-2 bg-orange-600 text-white rounded-md shadow-sm text-sm font-medium hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 whitespace-nowrap"
+            >
+              <i class="fas fa-cogs"></i>
+              <span>Traiter ({{ selectedReports.length }})</span>
+            </button>
+          </div>
         </div>
         
-        <div class="flex flex-wrap gap-3">
+        <!-- Filtres -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
           <div class="relative">
             <select
               v-model="statusFilter"
@@ -219,15 +234,6 @@
               placeholder="Date de fin"
             >
           </div>
-
-          <button 
-            v-if="selectedReports.length > 0"
-            @click="showBulkModal = true"
-            class="flex items-center space-x-2 px-4 py-2 bg-orange-600 text-white rounded-md shadow-sm text-sm font-medium hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
-          >
-            <i class="fas fa-cogs"></i>
-            <span>Traiter ({{ selectedReports.length }})</span>
-          </button>
         </div>
       </div>
 
@@ -308,7 +314,8 @@
 
       <!-- Table -->
       <div class="bg-white shadow-sm rounded-lg overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
             <tr>
               <th class="px-6 py-3 text-left">
@@ -424,6 +431,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <!-- Pagination -->
         <div v-if="reports.data && reports.data.length > 0" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">

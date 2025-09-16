@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class Publication extends Model
 {
@@ -18,6 +20,7 @@ class Publication extends Model
         'user_id',
         'custom_author_name',
         'title',
+        'slug',
         'content',
         'type',
         'is_anonymous',
@@ -105,6 +108,91 @@ class Publication extends Model
             return $this->custom_author_name;
         }
 
-        return $this->user ? $this->user->pseudo : 'Auteur inconnu';
+        // Vérifier si la relation user est chargée
+        if ($this->relationLoaded('user') && $this->user) {
+            return $this->user->pseudo;
+        }
+
+        // Si la relation n'est pas chargée, la charger
+        if ($this->user_id) {
+            try {
+                $user = $this->user;
+                return $user ? $user->pseudo : 'Auteur inconnu';
+            } catch (\Exception $e) {
+                return 'Auteur inconnu';
+            }
+        }
+
+        return 'Auteur inconnu';
+    }
+
+    public function getExcerptAttribute(): string
+    {
+        $content = $this->content ?? '';
+        // Nettoyer les caractères UTF-8 malformés
+        $cleanContent = mb_convert_encoding($content, 'UTF-8', 'UTF-8');
+        return substr(strip_tags($cleanContent), 0, 200) . '...';
+    }
+
+    public function setContentAttribute($value)
+    {
+        // Nettoyage automatique à chaque sauvegarde
+        $cleaned = $this->sanitizeContent($value);
+        $this->attributes['content'] = $cleaned;
+
+        // Log pour monitoring si nécessaire
+        if ($value !== $cleaned) {
+            Log::warning('Content was sanitized', [
+                'publication_id' => $this->id ?? 'new',
+                'original_length' => strlen($value),
+                'cleaned_length' => strlen($cleaned)
+            ]);
+        }
+    }
+
+    private function sanitizeContent($content)
+    {
+        // Multi-layer cleaning
+        $content = mb_convert_encoding($content, 'UTF-8', 'UTF-8');
+        $content = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $content);
+        $content = filter_var($content, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+        return iconv('UTF-8', 'UTF-8//IGNORE', $content);
+    }
+
+    public function generateSlug(): string
+    {
+        $baseSlug = Str::slug($this->title);
+        $slug = $baseSlug;
+        $counter = 1;
+
+        // Vérifier si le slug existe déjà
+        while (static::where('slug', $slug)->where('id', '!=', $this->id)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($publication) {
+            if (empty($publication->slug)) {
+                $publication->slug = $publication->generateSlug();
+            }
+        });
+
+        static::updating(function ($publication) {
+            if ($publication->isDirty('title') && empty($publication->slug)) {
+                $publication->slug = $publication->generateSlug();
+            }
+        });
     }
 }

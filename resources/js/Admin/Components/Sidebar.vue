@@ -70,6 +70,13 @@
         <span class="md:hidden lg:block">Médias de projet</span>
         </Link>
 
+        <Link :href="$route('admin.visually-impaired.index')"
+          :class="['flex items-center space-x-3 p-3 rounded-lg',
+          $page.component === 'Admin/Pages/VisuallyImpairedPeople' ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100']">
+        <i class="fas fa-eye"></i>
+        <span class="md:hidden lg:block">Personnes aveugles</span>
+        </Link>
+
       </div>
 
       <!-- Profile -->

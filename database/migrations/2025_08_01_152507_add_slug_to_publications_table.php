@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('publications', function (Blueprint $table) {
+            $table->string('slug')->unique()->after('title');
+            $table->index('slug');
         });
     }
 
@@ -22,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sessions');
+        Schema::table('publications', function (Blueprint $table) {
+            $table->dropIndex(['slug']);
+            $table->dropColumn('slug');
+        });
     }
 };
