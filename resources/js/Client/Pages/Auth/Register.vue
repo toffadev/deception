@@ -253,7 +253,7 @@
             <div class="text-center mt-8">
               <p class="text-gray-600">
                 Vous avez déjà un compte? 
-                <Link :href="$route('auth.login')" class="font-semibold text-blue-500 hover:text-blue-600 transition duration-200">
+                <Link href="/auth/login" class="font-semibold text-blue-500 hover:text-blue-600 transition duration-200">
                   Connectez-vous
                 </Link>
               </p>

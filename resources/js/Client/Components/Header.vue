@@ -201,14 +201,14 @@
           <!-- Si l'utilisateur n'est pas connecté -->
           <div v-else class="hidden md:flex items-center space-x-3">
             <Link 
-              :href="$route('auth.login')" 
+              href="/auth/login" 
               class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-medium transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
             >
               <i class="fas fa-sign-in-alt mr-2"></i>
               Connexion
             </Link>
             <Link 
-              :href="$route('auth.register')" 
+              href="/auth/register" 
               class="border border-red-500 text-red-500 hover:bg-red-50 px-4 py-2 rounded-full font-medium transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
             >
               <i class="fas fa-user-plus mr-2"></i>
@@ -313,7 +313,7 @@
             <!-- Actions mobile pour utilisateurs non connectés -->
             <div v-if="!$page.props.auth?.user" class="border-t border-gray-200 pt-3 mt-3 space-y-2">
               <Link 
-                :href="$route('auth.login')" 
+                href="/auth/login" 
                 @click="closeMobileMenu"
                 class="block px-4 py-3 rounded-lg font-medium text-white bg-red-500 hover:bg-red-600 transition-all duration-300 text-center"
               >
@@ -321,7 +321,7 @@
                 Connexion
               </Link>
               <Link 
-                :href="$route('auth.register')" 
+                href="/auth/register" 
                 @click="closeMobileMenu"
                 class="block px-4 py-3 rounded-lg font-medium text-red-500 border border-red-500 hover:bg-red-50 transition-all duration-300 text-center"
               >

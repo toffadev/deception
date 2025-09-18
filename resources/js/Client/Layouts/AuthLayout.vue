@@ -18,14 +18,14 @@
           <div class="flex items-center space-x-4">
             <Link 
               v-if="$page.url !== '/auth/login'" 
-              :href="$route('auth.login')" 
+              href="/auth/login" 
               class="text-gray-600 hover:text-red-500 font-medium transition duration-300"
             >
               Connexion
             </Link>
             <Link 
               v-if="$page.url !== '/auth/register'" 
-              :href="$route('auth.register')" 
+              href="/auth/register" 
               class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-medium transition duration-300"
             >
               Inscription

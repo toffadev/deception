@@ -79,7 +79,7 @@
         <div class="text-center text-sm">
           <p class="text-gray-600">
             Vous vous souvenez de votre mot de passe? 
-            <Link :href="$route('auth.login')" class="font-medium text-red-500 hover:text-red-600">Connectez-vous</Link>
+            <Link href="/auth/login" class="font-medium text-red-500 hover:text-red-600">Connectez-vous</Link>
           </p>
         </div>
       </div>
