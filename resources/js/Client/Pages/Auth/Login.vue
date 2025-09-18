@@ -171,7 +171,7 @@
             <div class="text-center mt-8">
               <p class="text-gray-600">
                 Vous n'avez pas encore de compte? 
-                <Link :href="$route('auth.register')" class="font-semibold text-red-500 hover:text-red-600 transition duration-200">
+                <Link href="/auth/register" class="font-semibold text-red-500 hover:text-red-600 transition duration-200">
                   Inscrivez-vous
                 </Link>
               </p>
