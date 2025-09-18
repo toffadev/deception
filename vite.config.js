@@ -14,7 +14,7 @@ export default defineConfig({
                 'resources/js/client.js',
                 'resources/js/admin.js'
             ],
-            refresh: true,
+            // refresh: true,
         }),
         vue({
             template: {
@@ -54,4 +54,12 @@ export default defineConfig({
             '@admin/Pages': resolve(__dirname, 'resources/js/Admin/Pages')
         },
     },
+    server: {
+    host: 'deception.datm.tech',
+    port: 5173,
+    cors: {
+        origin: ['http://localhost:8057', 'http://deception.datm.tech:8057','https://deception.datm.tech'],
+        credentials: true,
+    },
+},
 });

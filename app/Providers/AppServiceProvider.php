@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Publication;
@@ -23,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (config('app.env') === 'production' || request()->isSecure()) {
+            URL::forceScheme('https');
+        }
+        // Force the correct domain and scheme
+        URL::forceRootUrl(config('app.url'));
         // Enregistrer les observers
         Publication::observe(PublicationObserver::class);
 
